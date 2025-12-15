@@ -27,6 +27,8 @@ fn main() //The entrypoint
     let height: f64 = 1.82;
     let bmi = calculate_bmi(weight, height);
     println!("Your bmi is: {:.2}", bmi);
+
+    Ownership();
 }
 
 fn hello_world()
@@ -67,3 +69,37 @@ fn calculate_bmi(weight_kg: f64, height_m: f64) -> f64
 {
     weight_kg / (height_m*height_m)
 }
+
+//Ownership
+// Every value has a single owner. When the owner goes out of scope, the value gets dropped
+
+fn Ownership()
+{
+    let s1 = String::from("RUST");
+    let len = calculate_length(&s1);
+    println!("Length of {} is {}", s1, len);
+
+    //Transfer of ownership
+    let s2 = s1;
+
+    println!("{}", s2);
+
+    scope_drop();
+}
+
+fn calculate_length(s: &String) -> usize
+{
+    s.len()
+}
+
+fn scope_drop()
+{
+    let s1 = String::from("RUST");
+    let len = calculate_length(&s1);
+    println!("Length of {} is {}", s1, len);
+}
+
+//fn print_lost(s: &string) // will result in not being able to find s1
+//{
+//    println!("{}", &s1);
+//}
