@@ -29,6 +29,7 @@ fn main() //The entrypoint
     println!("Your bmi is: {:.2}", bmi);
 
     Ownership();
+    
 }
 
 fn hello_world()
