@@ -28,8 +28,22 @@ fn main() //The entrypoint
     let bmi = calculate_bmi(weight, height);
     println!("Your bmi is: {:.2}", bmi);
 
-    Ownership();
+    ownership();
+    borrowing();
+
+    //References and mutables
+    let mut account = BankAccount
+    {
+        owner:"Alice".to_string(),
+        balance: 150.55,
+    };
+
+    //imutable borrow to check the balance
+    account.check_balance();
     
+    //mutable borrow to withdraw money
+    account.withdraw(50.0);
+    account.check_balance();
 }
 
 fn hello_world()
@@ -74,7 +88,7 @@ fn calculate_bmi(weight_kg: f64, height_m: f64) -> f64
 //Ownership
 // Every value has a single owner. When the owner goes out of scope, the value gets dropped
 
-fn Ownership()
+fn ownership()
 {
     let s1 = String::from("RUST");
     let len = calculate_length(&s1);
@@ -104,3 +118,38 @@ fn scope_drop()
 //{
 //    println!("{}", &s1);
 //}
+
+fn borrowing()
+{
+    //let mut _x: i32 = 5;
+    
+    //let _r: &mut i32 = &mut _x;
+
+    //println!("Value of x = {}", _x);
+    //println!("Value of r = {}", _r);
+
+    //*_r += 1;
+
+    //println!("Value of r = {}", _r);
+}
+
+struct BankAccount
+{
+    owner: String,
+    balance: f64,
+}
+
+impl BankAccount  
+{
+    fn withdraw(&mut self, amount: f64)
+    {
+        println!("Withdrawing {} from {}", amount, self.owner);
+        self.balance -= amount;
+    }
+
+    fn check_balance(&self)
+    {
+        println!("Account owned by {} has the balance of {}", self.owner, self.balance);
+
+    }
+}
